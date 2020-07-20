@@ -28,4 +28,8 @@ log in via azure cli
 az login
 ```
 
-then run ./aks-select.sh
+then run 
+
+```shell
+./aks-select.sh
+```
