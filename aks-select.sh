@@ -11,7 +11,7 @@ SELECTED_SUBSCRIPTION=$(dialog --radiolist "Select Azure Subscription" 0 0 $SUBS
 az account set -s $SELECTED_SUBSCRIPTION
 echo "Selected subscription: " $SELECTED_SUBSCRIPTION
 
-export AVAILABLE_AKS_CLUSTER=$(az aks list -o tsv | awk '{ printf ("%s %s %s ",$13,"cluster",$13) }')
+export AVAILABLE_AKS_CLUSTER=$(az aks list -o tsv | awk '{ printf ("%s %s %s ",$14,"cluster",$14) }')
 AKS_CLUSTER_COUNT=$("$AVAILABLE_AKS_CLUSTER" | wc -w)
 
 echo "setting dialog"
