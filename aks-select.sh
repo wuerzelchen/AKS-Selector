@@ -2,7 +2,7 @@
 export SELECTED_SUBSCRIPTION=""
 export SELECTED_AKSCLUSTER=""
 
-export AVAILABLE_AZURE_SUBSCRIPTONS=$(az account list -o tsv | awk '{ printf ("%s %s %s ",$6,$3,$3) }')
+export AVAILABLE_AZURE_SUBSCRIPTONS=$(az account list --query '[].{Name:name,SubscriptionId:id}' -o tsv | awk '{ printf ("%s %s %s ",$1,$2,$2) }')
 SUBSCRIPTION_COUNT=$("$AVAILABLE_AZURE_SUBSCRIPTONS" | wc -w)
 
 SELECTED_SUBSCRIPTION=$(dialog --radiolist "Select Azure Subscription" 0 0 $SUBSCRIPTION_COUNT $AVAILABLE_AZURE_SUBSCRIPTONS --stdout)
@@ -11,7 +11,7 @@ SELECTED_SUBSCRIPTION=$(dialog --radiolist "Select Azure Subscription" 0 0 $SUBS
 az account set -s $SELECTED_SUBSCRIPTION
 echo "Selected subscription: " $SELECTED_SUBSCRIPTION
 
-export AVAILABLE_AKS_CLUSTER=$(az aks list -o tsv | awk '{ printf ("%s %s %s ",$14,"cluster",$14) }')
+export AVAILABLE_AKS_CLUSTER=$(az aks list --query '[].name' -o tsv | awk '{ printf ("%s %s %s ",$1,"cluster",$1) }')
 AKS_CLUSTER_COUNT=$("$AVAILABLE_AKS_CLUSTER" | wc -w)
 
 echo "setting dialog"
